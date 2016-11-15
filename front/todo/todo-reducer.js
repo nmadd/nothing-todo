@@ -1,10 +1,10 @@
-const post = (state = null, action) => {
+const todo = (state = null, action) => {
   switch (action.type) {
-    case 'GET_SINGLE_POST':
+    case 'GET_SINGLE_TODO':
       return action.payload;
     default:
       return state
   }
 };
 
-export default post;
+export default todo;

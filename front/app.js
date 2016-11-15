@@ -5,16 +5,16 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import {Provider} from 'react-redux';
 
 //Components
-import PostsContainer from './posts/PostsContainer.jsx';
-import PostContainer from './post/PostContainer.jsx';
-import CreatePost from './create-post/CreatePost.jsx';
+import TodosContainer from './todos/TodosContainer.jsx';
+import TodoContainer from './todo/TodoContainer.jsx';
+import CreateTodo from './create-todo/CreateTodo.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import NoRoute from './404/NoRoute';
 
 //Redux
 import store from './store/store.js';
-import {getPostsAsync} from './posts/posts-actions.js';
-import {getSinglePostAsync} from './post/post-actions.js';
+import {getTodosAsync} from './todos/todos-actions.js';
+import {getSingleTodoAsync} from './todo/todo-actions.js';
 
 //style
 import {css} from 'aphrodite'
@@ -22,23 +22,21 @@ import styles from './styles'
 
 const App = (props) => (
     <div >
-      <Navbar links={[{title: 'Posts', url: '/'}, {title: 'CreatePost', url: 'create-post'}]}/>
+      <Navbar links={[{title: 'Todos', url: '/'}, {title: 'CreateTodo', url: 'create-todo'}]}/>
       {props.children}
     </div>
 )
 
-const getPost = (nextState) => {store.dispatch(getSinglePostAsync(nextState.params.id))}
-const getAllPosts = () => {store.dispatch(getPostsAsync())}
-const logEnter = (nextState) => {console.log('Next state:', nextState);}
-
+const getTodo = (nextState) => {store.dispatch(getSingleTodoAsync(nextState.params.id))}
+const getAllTodos = () => {store.dispatch(getTodosAsync())}
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <IndexRoute component={PostsContainer}  onEnter={getAllPosts}/>
-        <Route path="/create-post" component={CreatePost} />
-        <Route path="/post/:id" component={PostContainer}  onEnter={getPost}/>
+        <IndexRoute component={TodosContainer}  onEnter={getAllTodos}/>
+        <Route path="/create-todo" component={CreateTodo} />
+        <Route path="/todo/:id" component={TodoContainer}  onEnter={getTodo}/>
       </Route>
       <Route path="*" component={NoRoute} />
     </Router>

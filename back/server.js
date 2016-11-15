@@ -1,85 +1,85 @@
+/////////////////////////
+// Server & API:
+// - initialize database and server connection
+// - API for getting data from database to frontend and vice versa
+/////////////////////////
 
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const postModel = require('./posts/posts-model');
-const Post = mongoose.model('Post');
+const todoModel = require('./todos/todos-model');
+const Todo = mongoose.model('Todo');
 const path = require('path');
 const rootPath = path.join(__dirname, '..');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/blog-app');
+mongoose.connect('mongodb://localhost/nothing-todo-test');
 
 const db = mongoose.connection;
 
+//body parser middleware creates 'req.body' by attacheching body property to request object
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Serving up bundle.js file
+//serving up bundle.js file so it is accessible by index.html on the frontend
 app.use(express.static(`${rootPath}/front/bundle`));
 
+//////////
+// start of the API
+//////////
 
-//API
-//Get all blog posts
-app.get('/posts', (req, res) => {
-  Post.find({}, (err, data) => {
-    res.send(data);
+//get all blog todos
+app.get('/todos', (req, res) => {
+  Todo.find({}, (err, data) => {
+    if(err) console.log(err);
+    else res.send(data);
   })
 });
 
-app.delete('/posts/:id', (req, res) => {
-  Post.remove({_id: req.params.id}, (err, data) => {
-    if (err) console.error('Mongoose delete error', err);
-    else console.log('Delete successful');
-  });
-});
 
-//Make a new post
-app.post('/my-posts', (req, res) => {
-  console.log('req body', req.body)
-  Post.create(req.body, (err, data) => {
+//Make a new todo
+app.post('/todos', (req, res) => {
+  Todo.create(req.body, (err, data) => {
     if(err) console.log(err);
     else res.send(data);
   });
 });
 
-app.get('/my-posts', (req, res) => {
-  console.log('GET request: ready to make a new post');
-});
-
-
-app.get('/comments', (req, res) => {
-  console.log('Getting comments!');
-  Comment.find({}, () => {
-    res.send('data coming soon')
-  });
-});
-
-app.post('/comments', (req, res) => {
-  const newComment = req.body;
-  console.log('New comment', newComment);
-  Comment.create(newComment);
-
-});
-
-//Get an individual post
-app.get('/posts/:id', (req, res) => {
-  Post.findById(req.params.id, (err, data) => {
-    console.log('data', data);
-    res.json(data);
+//get an individual todo by passing id as a url parameter
+//the 'id' string is accessible as 'req.params.id'
+app.get('/todos/:id', (req, res) => {
+  Todo.findById(req.params.id, (err, data) => {
+    if(err) console.log(err);
+    else res.json(data);
   })
 });
 
-//Server call
+//example 'put' request for updating a todo given an id
+app.put('/todos/:id', (req, res) => {
+  Todo.findOneAndUpdate({_id: req.params.id}, (err, data) => {
+    if (err) console.log(err);
+    else console.log(data);
+  })
+});
+
+//delete a todo, given an id
+app.delete('/todos/:id', (req, res) => {
+  Todo.remove({_id: req.params.id}, (err, data) => {
+    if (err) console.error('Mongoose delete error', err);
+    else console.log('Delete successful');
+  });
+});
+
+//send back 'index.html' file for all other requests
+//react-router then takes over once index.html is loaded by the browser
 app.get('/*', (req, res) => {
   res.sendFile(`${rootPath}/front/index.html`);
 });
 
-
-
+//make sure database connection is open before starting server
 db.on('open', () => {
   console.log('db connection opened!');
-  app.listen(5555, () => {
-    console.log('Listening on port 5555');
+  app.listen(1111, () => {
+    console.log('Listening on port 1111');
   });
 })
 
