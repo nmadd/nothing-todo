@@ -12,6 +12,8 @@ const Todo = mongoose.model('Todo');
 const path = require('path');
 const rootPath = path.join(__dirname, '..');
 const bodyParser = require('body-parser');
+const CronJob = require('cron').CronJob;
+
 
 mongoose.connect('mongodb://localhost/nothing-todo-test');
 
@@ -69,11 +71,41 @@ app.delete('/todos/:id', (req, res) => {
   });
 });
 
+app.put('/todos/crate/:id', (req, res) => {
+  Todo.findOneAndUpdate({_id: req.params.id}, {active: false}, (err, data) => {
+    if (err) console.error('Mongoose update error', err);
+    else console.log('Update successful');
+  });
+});
+
+app.put('/todos/complete/:id', (req, res) => {
+  Todo.findOneAndUpdate({_id: req.params.id}, {completed: true, active: false}, (err, data) => {
+    if (err) console.error('Mongoose update error', err);
+    else console.log('Update successful');
+  });
+});
+
 //send back 'index.html' file for all other requests
 //react-router then takes over once index.html is loaded by the browser
 app.get('/*', (req, res) => {
   res.sendFile(`${rootPath}/front/index.html`);
 });
+
+
+
+var job = new CronJob({
+  cronTime: '00 00 00 * * *',
+  onTick: function() {
+     Todo.update({active:true}, {active: false}, {multi: true},
+         function(err, num) {
+             console.log("updated "+num);
+         }
+     );
+  },
+  start: false,
+  timeZone: 'America/New_York'
+});
+job.start();
 
 //make sure database connection is open before starting server
 db.on('open', () => {

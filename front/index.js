@@ -2,9 +2,18 @@
 import todo from './todo/todo-reducer';
 import todos from './todos/todos-reducer';
 import {combineReducers} from 'redux';
+const activePath = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_ACTIVE_PATH':
+      return action.payload
+    default:
+      return state
+  }
+}
 const reducer = combineReducers({
   todos,
-  todo
+  todo,
+  activePath
 });
 
 //actions

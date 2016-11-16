@@ -8,7 +8,7 @@ export const createTodo = newTodo => ({
 export const createTodoAsync = (newTodo) => dispatch => {
   $.ajax({
     url: '/todos',
-    type: 'TODO',
+    type: 'POST',
     data: newTodo
   })
   .done(data => {

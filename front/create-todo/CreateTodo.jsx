@@ -7,9 +7,7 @@ import store from '../store/store.js';
 const CreateTodo = React.createClass({
   getInitialState() {
     return {
-      title: '',
-      text: '',
-      video: ''
+      text: ''
     }
   },
   handleChange(inputField, e) {
@@ -24,7 +22,7 @@ const CreateTodo = React.createClass({
         <form style={styles}>
           <h1>Submit a todo:</h1>
           <label>Text: </label>
-          <input onChange={this.handleChange.bind(this, 'title')} type="text" name="title" />
+          <input onChange={this.handleChange.bind(this, 'text')} type="text" name="title" />
           <br/>
           <br/>
           <Link to="/"><input onClick={this.submitNewTodo} type="button" value="Submit" /></Link>

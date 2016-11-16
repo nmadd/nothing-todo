@@ -7,6 +7,8 @@ import {Provider} from 'react-redux';
 //Components
 import TodosContainer from './todos/TodosContainer.jsx';
 import TodoContainer from './todo/TodoContainer.jsx';
+import CrateContainer from './crate/CrateContainer.jsx';
+import CompletedContainer from './completed/CompletedContainer.jsx';
 import CreateTodo from './create-todo/CreateTodo.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import NoRoute from './404/NoRoute';
@@ -15,27 +17,37 @@ import NoRoute from './404/NoRoute';
 import store from './store/store.js';
 import {getTodosAsync} from './todos/todos-actions.js';
 import {getSingleTodoAsync} from './todo/todo-actions.js';
+import {setActivePath} from './route-utils';
 
 //style
 import {css} from 'aphrodite'
 import styles from './styles'
 
+//misc
+import _ from 'lodash';
+
 const App = (props) => (
     <div >
-      <Navbar links={[{title: 'Todos', url: '/'}, {title: 'CreateTodo', url: 'create-todo'}]}/>
+      <Navbar links={[{title: 'Todos', url: '/'},  {title: 'Crate', url: 'crate'}, {title: 'Completed', url: 'completed'}, {title: 'CreateTodo', url: 'create-todo'}]}/>
       {props.children}
     </div>
 )
 
 const getTodo = (nextState) => {store.dispatch(getSingleTodoAsync(nextState.params.id))}
 const getAllTodos = () => {store.dispatch(getTodosAsync())}
+const dispatchActivePath = (nextState) => {store.dispatch(setActivePath(nextState.location.pathname))};
+const logEnter = (nextState) => {console.log('Next state', nextState);};
+const rootPathEnterHandler = _.flow(dispatchActivePath, getAllTodos, logEnter);
+
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={TodosContainer}  onEnter={getAllTodos}/>
+      <Route path="/" component={App} >
+        <IndexRoute component={TodosContainer}  onEnter={rootPathEnterHandler}/>
         <Route path="/create-todo" component={CreateTodo} />
+        <Route path="/crate" component={CrateContainer} onEnter={dispatchActivePath} />
+        <Route path="/completed" component={CompletedContainer} onEnter={dispatchActivePath} />
         <Route path="/todo/:id" component={TodoContainer}  onEnter={getTodo}/>
       </Route>
       <Route path="*" component={NoRoute} />

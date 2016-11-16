@@ -6,11 +6,15 @@ import store from '../store/store';
 
 const TodosContainer = (props) => (
   props.todos ?
-  <Todos todos={props.todos} /> : <h1>Loading...</h1>
+  <div>
+    <h1>Todos:</h1>
+    <Todos todos={props.todos} />
+  </div>
+  : <h1>Loading...</h1>
 )
 
 const mapStateToProps = (state, ownProps) =>  {
-  return {todos: state.todos};
+  return {todos: state.todos.filter(todo => todo.active === true)};
 }
 
 
