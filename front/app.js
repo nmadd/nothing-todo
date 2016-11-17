@@ -46,8 +46,8 @@ ReactDOM.render(
       <Route path="/" component={App} >
         <IndexRoute component={TodosContainer}  onEnter={rootPathEnterHandler}/>
         <Route path="/create-todo" component={CreateTodo} />
-        <Route path="/crate" component={CrateContainer} onEnter={dispatchActivePath} />
-        <Route path="/completed" component={CompletedContainer} onEnter={dispatchActivePath} />
+        <Route path="/crate" component={TodosContainer} onEnter={rootPathEnterHandler} />
+        <Route path="/completed" component={TodosContainer} onEnter={rootPathEnterHandler} />
         <Route path="/todo/:id" component={TodoContainer}  onEnter={getTodo}/>
       </Route>
       <Route path="*" component={NoRoute} />

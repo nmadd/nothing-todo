@@ -9,6 +9,15 @@ const TodoContainer = (props) => (
 
 const mapStateToProps = (state, ownProps) =>  {
   return ownProps.todo ? {todo: ownProps.todo, container: state.activePath} : {todo: state.todo, container: state.activePath};
+  // switch (state.activePath) {
+  //   case '/':
+  //     return ownProps.todo ? {todo: ownProps.todo, container: state.activePath, headerText: 'Active'} : {todo: state.todo, container: state.activePath, headerText: 'Active'};
+  //   case '/crate':
+  //     return {todos: state.todos.filter(todo => todo.active === false && todo.completed === false), headerText: 'Crate'};
+  //   case '/completed':
+  //     return {todos: state.todos.filter(todo => todo.completed === true), headerText: 'Completed'};
+  //
+  // }
 }
 
 export default connect(mapStateToProps)(TodoContainer);
