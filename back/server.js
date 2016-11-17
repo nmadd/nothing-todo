@@ -72,7 +72,7 @@ app.delete('/todos/:id', (req, res) => {
 });
 
 app.put('/todos/crate/:id', (req, res) => {
-  Todo.findOneAndUpdate({_id: req.params.id}, {active: false}, (err, data) => {
+  Todo.findOneAndUpdate({_id: req.params.id}, {active: false, completed: false}, (err, data) => {
     if (err) console.error('Mongoose update error', err);
     else console.log('Update successful');
   });
@@ -80,6 +80,13 @@ app.put('/todos/crate/:id', (req, res) => {
 
 app.put('/todos/complete/:id', (req, res) => {
   Todo.findOneAndUpdate({_id: req.params.id}, {completed: true, active: false}, (err, data) => {
+    if (err) console.error('Mongoose update error', err);
+    else console.log('Update successful');
+  });
+});
+
+app.put('/todos/make-active/:id', (req, res) => {
+  Todo.findOneAndUpdate({_id: req.params.id}, {completed: false, active: true}, (err, data) => {
     if (err) console.error('Mongoose update error', err);
     else console.log('Update successful');
   });

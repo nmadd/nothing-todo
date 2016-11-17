@@ -53,3 +53,16 @@ export const completeTodoAsync = (todo_id) => dispatch => {
   })
   dispatch(completeTodo(todo_id));
 }
+
+export const makeTodoActive = todo_id => ({
+  type: 'MAKE_TODO_ACTIVE',
+  payload: todo_id
+})
+
+export const makeTodoActiveAsync = (todo_id) => dispatch => {
+  $.ajax({
+    url: `/todos/make-active/${todo_id}`,
+    type: 'PUT'
+  })
+  dispatch(makeTodoActive(todo_id));
+}

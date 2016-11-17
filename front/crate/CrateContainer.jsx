@@ -8,13 +8,13 @@ const CrateContainer = (props) => (
     props.todos ?
     <div>
       <h1>Crate:</h1>
-      <Todos todos={props.todos} container={props.activePath} />
+      <Todos todos={props.todos} />
     </div>
     : <h1>Loading...</h1>
 )
 
 const mapStateToProps = (state, ownProps) =>  {
-  return {todos: state.todos.filter(todo => todo.active === false && todo.completed === false), activePath: state.activePath};
+  return {todos: state.todos.filter(todo => todo.active === false && todo.completed === false)};
 }
 
 

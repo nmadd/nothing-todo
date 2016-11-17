@@ -7,7 +7,9 @@ const todos = (state = [], action) => {
     case 'COMPLETE_TODO':
       return state.map(todo => todo._id === action.payload ? Object.assign(todo, {completed: true, active: false}) : todo);
     case 'CRATE_TODO':
-      return state.map(todo => todo._id === action.payload ? Object.assign(todo, {active: false}) : todo);
+      return state.map(todo => todo._id === action.payload ? Object.assign(todo, {active: false, completed: false}) : todo);
+    case 'MAKE_TODO_ACTIVE':
+      return state.map(todo => todo._id === action.payload ? Object.assign(todo, {active: true, completed: false}) : todo);
     case 'DELETE_TODO':
       return _.remove(state, (todo) => todo._id !== action.payload);
     case 'CREATE_TODO':
