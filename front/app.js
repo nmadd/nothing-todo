@@ -7,8 +7,6 @@ import {Provider} from 'react-redux';
 //Components
 import TodosContainer from './todos/TodosContainer.jsx';
 import TodoContainer from './todo/TodoContainer.jsx';
-import CrateContainer from './crate/CrateContainer.jsx';
-import CompletedContainer from './completed/CompletedContainer.jsx';
 import CreateTodo from './create-todo/CreateTodo.jsx';
 import Navbar from './navbar/Navbar.jsx';
 import NoRoute from './404/NoRoute';
