@@ -99,7 +99,6 @@ app.get('/*', (req, res) => {
 });
 
 
-
 var job = new CronJob({
   cronTime: '00 00 00 * * *',
   onTick: function() {

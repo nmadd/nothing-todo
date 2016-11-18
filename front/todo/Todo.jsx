@@ -1,7 +1,8 @@
 import React from 'react';
 import store from '../store/store.js';
 import {Link} from 'react-router';
-import {deleteTodoAsync, sendTodoToCrateAsync, completeTodoAsync, makeTodoActiveAsync} from './todo-actions';
+import allActions from '../actions';
+const {deleteTodoAsync, sendTodoToCrateAsync, completeTodoAsync, makeTodoActiveAsync} = allActions;
 import ButtonContainer from '../button/ButtonContainer.jsx';
 
 

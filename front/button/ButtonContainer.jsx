@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {sendTodoToCrateAsync, sendTodoToCrate} from '../todo/todo-actions';
 
 const ButtonContainer = (props) => (
   props.show ?

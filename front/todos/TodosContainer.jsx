@@ -1,7 +1,8 @@
 import React from 'react';
 import Todos from './Todos.jsx';
 import {connect} from 'react-redux';
-import {getTodosAsync} from './todos-actions';
+import allActions from '../actions';
+const {getTodosAsync} = allActions;
 import store from '../store/store';
 
 const TodosContainer = (props) => (
