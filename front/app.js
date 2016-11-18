@@ -13,9 +13,8 @@ import NoRoute from './404/NoRoute';
 
 //Redux
 import store from './store/store.js';
-import {getTodosAsync} from './todos/todos-actions.js';
-import {getSingleTodoAsync} from './todo/todo-actions.js';
-import {setActivePath} from './route-utils';
+import allActions from './actions';
+const {getTodosAsync, setActivePath, getSingleTodoAsync} = allActions;
 
 //style
 import {css} from 'aphrodite'

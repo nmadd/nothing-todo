@@ -93,11 +93,9 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _todosActions = __webpack_require__(269);
+	var _actions = __webpack_require__(298);
 	
-	var _todoActions = __webpack_require__(265);
-	
-	var _routeUtils = __webpack_require__(274);
+	var _actions2 = _interopRequireDefault(_actions);
 	
 	var _aphrodite = __webpack_require__(275);
 	
@@ -111,8 +109,20 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//Redux
+	var getTodosAsync = _actions2.default.getTodosAsync,
+	    setActivePath = _actions2.default.setActivePath,
+	    getSingleTodoAsync = _actions2.default.getSingleTodoAsync;
+	
+	//style
+	
+	
 	//Components
 	//npm modules
+	
+	
+	//misc
+	
 	var App = function App(props) {
 	  return _react2.default.createElement(
 	    'div',
@@ -122,23 +132,14 @@
 	  );
 	};
 	
-	//misc
-	
-	
-	//style
-	
-	
-	//Redux
-	
-	
 	var getTodo = function getTodo(nextState) {
-	  _store2.default.dispatch((0, _todoActions.getSingleTodoAsync)(nextState.params.id));
+	  _store2.default.dispatch(getSingleTodoAsync(nextState.params.id));
 	};
 	var getAllTodos = function getAllTodos() {
-	  _store2.default.dispatch((0, _todosActions.getTodosAsync)());
+	  _store2.default.dispatch(getTodosAsync());
 	};
 	var dispatchActivePath = function dispatchActivePath(nextState) {
-	  _store2.default.dispatch((0, _routeUtils.setActivePath)(nextState.location.pathname));
+	  _store2.default.dispatch(setActivePath(nextState.location.pathname));
 	};
 	var logEnter = function logEnter(nextState) {
 	  console.log('Next state', nextState);
@@ -55900,7 +55901,9 @@
 	
 	var _reactRouter = __webpack_require__(173);
 	
-	var _createTodoActions = __webpack_require__(271);
+	var _actions = __webpack_require__(298);
+	
+	var _actions2 = _interopRequireDefault(_actions);
 	
 	var _store = __webpack_require__(259);
 	
@@ -55909,6 +55912,9 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	var createTodoAsync = _actions2.default.createTodoAsync;
+	
 	
 	var CreateTodo = _react2.default.createClass({
 	  displayName: 'CreateTodo',
@@ -55921,7 +55927,7 @@
 	    this.setState(_defineProperty({}, inputField, e.target.value));
 	  },
 	  submitNewTodo: function submitNewTodo() {
-	    _store2.default.dispatch((0, _createTodoActions.createTodoAsync)(this.state));
+	    _store2.default.dispatch(createTodoAsync(this.state));
 	  },
 	  render: function render() {
 	    return _react2.default.createElement(
@@ -55960,42 +55966,7 @@
 	exports.default = CreateTodo;
 
 /***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.createTodoAsync = exports.createTodo = undefined;
-	
-	var _jquery = __webpack_require__(266);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var createTodo = exports.createTodo = function createTodo(newTodo) {
-	  return {
-	    type: 'CREATE_TODO',
-	    payload: newTodo
-	  };
-	};
-	
-	var createTodoAsync = exports.createTodoAsync = function createTodoAsync(newTodo) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos',
-	      type: 'POST',
-	      data: newTodo
-	    }).done(function (data) {
-	      dispatch(createTodo(data));
-	    });
-	  };
-	};
-
-/***/ },
+/* 271 */,
 /* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -56064,22 +56035,7 @@
 	exports.default = NoRoute;
 
 /***/ },
-/* 274 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var setActivePath = exports.setActivePath = function setActivePath(activePath) {
-	  return {
-	    type: 'SET_ACTIVE_PATH',
-	    payload: activePath
-	  };
-	};
-
-/***/ },
+/* 274 */,
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -57895,6 +57851,226 @@
 	//     textDecoration: 'none'
 	//   }
 	// }
+
+/***/ },
+/* 298 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _todosActions = __webpack_require__(299);
+	
+	var todosActions = _interopRequireWildcard(_todosActions);
+	
+	var _todoActions = __webpack_require__(300);
+	
+	var todoActions = _interopRequireWildcard(_todoActions);
+	
+	var _activePathActions = __webpack_require__(302);
+	
+	var activePathActions = _interopRequireWildcard(_activePathActions);
+	
+	var _createTodoActions = __webpack_require__(301);
+	
+	var createTodoActions = _interopRequireWildcard(_createTodoActions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	exports.default = Object.assign(todosActions, todoActions, activePathActions, createTodoActions);
+
+/***/ },
+/* 299 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getTodosAsync = exports.getTodos = undefined;
+	
+	var _jquery = __webpack_require__(266);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getTodos = exports.getTodos = function getTodos(todos) {
+	  return {
+	    type: 'GET_TODOS',
+	    payload: todos
+	  };
+	};
+	
+	var getTodosAsync = exports.getTodosAsync = function getTodosAsync() {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos',
+	      type: 'GET'
+	    }).done(function (data) {
+	      dispatch(getTodos(data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 300 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.makeTodoActiveAsync = exports.makeTodoActive = exports.completeTodoAsync = exports.completeTodo = exports.sendTodoToCrateAsync = exports.sendTodoToCrate = exports.deleteTodoAsync = exports.deleteTodo = exports.getSingleTodoAsync = exports.getSingleTodo = undefined;
+	
+	var _jquery = __webpack_require__(266);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getSingleTodo = exports.getSingleTodo = function getSingleTodo(todo) {
+	  return {
+	    type: 'GET_SINGLE_TODO',
+	    payload: todo
+	  };
+	};
+	
+	var getSingleTodoAsync = exports.getSingleTodoAsync = function getSingleTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/' + todo_id,
+	      type: 'GET'
+	    }).done(function (data) {
+	      dispatch(getSinglePost(data));
+	    });
+	  };
+	};
+	
+	var deleteTodo = exports.deleteTodo = function deleteTodo(todo_id) {
+	  return {
+	    type: 'DELETE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var deleteTodoAsync = exports.deleteTodoAsync = function deleteTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/' + todo_id,
+	      type: 'DElETE'
+	    });
+	    dispatch(deleteTodo(todo_id));
+	  };
+	};
+	
+	var sendTodoToCrate = exports.sendTodoToCrate = function sendTodoToCrate(todo_id) {
+	  return {
+	    type: 'CRATE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var sendTodoToCrateAsync = exports.sendTodoToCrateAsync = function sendTodoToCrateAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/crate/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(sendTodoToCrate(todo_id));
+	  };
+	};
+	
+	var completeTodo = exports.completeTodo = function completeTodo(todo_id) {
+	  return {
+	    type: 'COMPLETE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var completeTodoAsync = exports.completeTodoAsync = function completeTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/complete/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(completeTodo(todo_id));
+	  };
+	};
+	
+	var makeTodoActive = exports.makeTodoActive = function makeTodoActive(todo_id) {
+	  return {
+	    type: 'MAKE_TODO_ACTIVE',
+	    payload: todo_id
+	  };
+	};
+	
+	var makeTodoActiveAsync = exports.makeTodoActiveAsync = function makeTodoActiveAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/make-active/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(makeTodoActive(todo_id));
+	  };
+	};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createTodoAsync = exports.createTodo = undefined;
+	
+	var _jquery = __webpack_require__(266);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var createTodo = exports.createTodo = function createTodo(newTodo) {
+	  return {
+	    type: 'CREATE_TODO',
+	    payload: newTodo
+	  };
+	};
+	
+	var createTodoAsync = exports.createTodoAsync = function createTodoAsync(newTodo) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos',
+	      type: 'POST',
+	      data: newTodo
+	    }).done(function (data) {
+	      dispatch(createTodo(data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var setActivePath = exports.setActivePath = function setActivePath(activePath) {
+	  return {
+	    type: 'SET_ACTIVE_PATH',
+	    payload: activePath
+	  };
+	};
 
 /***/ }
 /******/ ]);

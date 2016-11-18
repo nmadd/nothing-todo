@@ -1,7 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import {Link} from 'react-router';
-import {createTodoAsync} from './create-todo-actions';
+import test from '../actions';
+const {createTodoAsync} = test;
 import store from '../store/store.js';
 
 const CreateTodo = React.createClass({
