@@ -73,19 +73,19 @@
 	
 	var _TodosContainer2 = _interopRequireDefault(_TodosContainer);
 	
-	var _TodoContainer = __webpack_require__(268);
+	var _TodoContainer = __webpack_require__(273);
 	
 	var _TodoContainer2 = _interopRequireDefault(_TodoContainer);
 	
-	var _CreateTodo = __webpack_require__(270);
+	var _CreateTodo = __webpack_require__(274);
 	
 	var _CreateTodo2 = _interopRequireDefault(_CreateTodo);
 	
-	var _Navbar = __webpack_require__(272);
+	var _Navbar = __webpack_require__(275);
 	
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 	
-	var _NoRoute = __webpack_require__(273);
+	var _NoRoute = __webpack_require__(276);
 	
 	var _NoRoute2 = _interopRequireDefault(_NoRoute);
 	
@@ -93,13 +93,13 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _actions = __webpack_require__(306);
+	var _actions = __webpack_require__(266);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _aphrodite = __webpack_require__(274);
+	var _aphrodite = __webpack_require__(277);
 	
-	var _styles = __webpack_require__(296);
+	var _styles = __webpack_require__(299);
 	
 	var _styles2 = _interopRequireDefault(_styles);
 	
@@ -28090,7 +28090,7 @@
 	
 	var _reactRedux = __webpack_require__(228);
 	
-	var _actions = __webpack_require__(306);
+	var _actions = __webpack_require__(266);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
@@ -28163,7 +28163,7 @@
 	
 	var _Todo2 = _interopRequireDefault(_Todo);
 	
-	var _TodoContainer = __webpack_require__(268);
+	var _TodoContainer = __webpack_require__(273);
 	
 	var _TodoContainer2 = _interopRequireDefault(_TodoContainer);
 	
@@ -28205,11 +28205,11 @@
 	
 	var _reactRouter = __webpack_require__(173);
 	
-	var _actions = __webpack_require__(306);
+	var _actions = __webpack_require__(266);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
-	var _ButtonContainer = __webpack_require__(299);
+	var _ButtonContainer = __webpack_require__(272);
 	
 	var _ButtonContainer2 = _interopRequireDefault(_ButtonContainer);
 	
@@ -28263,11 +28263,13 @@
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _index = __webpack_require__(261);
+	var _reducers = __webpack_require__(261);
+	
+	var _reducers2 = _interopRequireDefault(_reducers);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var store = (0, _redux.createStore)(_index.reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	var store = (0, _redux.createStore)(_reducers2.default, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), (0, _redux.applyMiddleware)(_reduxThunk2.default));
 	
 	exports.default = store;
 
@@ -28308,20 +28310,40 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.reducer = undefined;
 	
-	var _todoReducer = __webpack_require__(262);
+	var _redux = __webpack_require__(235);
 	
-	var _todoReducer2 = _interopRequireDefault(_todoReducer);
+	var _activePathReducer = __webpack_require__(262);
+	
+	var _activePathReducer2 = _interopRequireDefault(_activePathReducer);
 	
 	var _todosReducer = __webpack_require__(263);
 	
 	var _todosReducer2 = _interopRequireDefault(_todosReducer);
 	
-	var _redux = __webpack_require__(235);
+	var _todoReducer = __webpack_require__(265);
+	
+	var _todoReducer2 = _interopRequireDefault(_todoReducer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var reducer = (0, _redux.combineReducers)({
+	  todos: _todosReducer2.default,
+	  todo: _todoReducer2.default,
+	  activePath: _activePathReducer2.default
+	});
+	
+	exports.default = reducer;
+
+/***/ },
+/* 262 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	var activePath = function activePath() {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
 	  var action = arguments[1];
@@ -28333,46 +28355,9 @@
 	    default:
 	      return state;
 	  }
-	}; //reducers
-	
-	var reducer = (0, _redux.combineReducers)({
-	  todos: _todosReducer2.default,
-	  todo: _todoReducer2.default,
-	  activePath: activePath
-	});
-	
-	//actions
-	// import {createTodo, createTodoAsync} from './front/create-todo/create-todo-actions'
-	
-	//models
-	// import Todo from './back/todos/todos-model';
-	// const models = {Todo};
-	
-	//export an object that contains reducers, actions, and models
-	exports.reducer = reducer;
-
-/***/ },
-/* 262 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var todo = function todo() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case 'GET_SINGLE_TODO':
-	      return action.payload;
-	    default:
-	      return state;
-	  }
 	};
 	
-	exports.default = todo;
+	exports.default = activePath;
 
 /***/ },
 /* 263 */
@@ -45450,8 +45435,95 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(249)(module)))
 
 /***/ },
-/* 265 */,
+/* 265 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var todo = function todo() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case 'GET_SINGLE_TODO':
+	      return action.payload;
+	    default:
+	      return state;
+	  }
+	};
+	
+	exports.default = todo;
+
+/***/ },
 /* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _todosActions = __webpack_require__(267);
+	
+	var todosActions = _interopRequireWildcard(_todosActions);
+	
+	var _todoActions = __webpack_require__(269);
+	
+	var todoActions = _interopRequireWildcard(_todoActions);
+	
+	var _activePathActions = __webpack_require__(270);
+	
+	var activePathActions = _interopRequireWildcard(_activePathActions);
+	
+	var _createTodoActions = __webpack_require__(271);
+	
+	var createTodoActions = _interopRequireWildcard(_createTodoActions);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	exports.default = Object.assign(todosActions, todoActions, activePathActions, createTodoActions);
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getTodosAsync = exports.getTodos = undefined;
+	
+	var _jquery = __webpack_require__(268);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getTodos = exports.getTodos = function getTodos(todos) {
+	  return {
+	    type: 'GET_TODOS',
+	    payload: todos
+	  };
+	};
+	
+	var getTodosAsync = exports.getTodosAsync = function getTodosAsync() {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos',
+	      type: 'GET'
+	    }).done(function (data) {
+	      dispatch(getTodos(data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -55677,8 +55749,196 @@
 
 
 /***/ },
-/* 267 */,
-/* 268 */
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.makeTodoActiveAsync = exports.makeTodoActive = exports.completeTodoAsync = exports.completeTodo = exports.sendTodoToCrateAsync = exports.sendTodoToCrate = exports.deleteTodoAsync = exports.deleteTodo = exports.getSingleTodoAsync = exports.getSingleTodo = undefined;
+	
+	var _jquery = __webpack_require__(268);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var getSingleTodo = exports.getSingleTodo = function getSingleTodo(todo) {
+	  return {
+	    type: 'GET_SINGLE_TODO',
+	    payload: todo
+	  };
+	};
+	
+	var getSingleTodoAsync = exports.getSingleTodoAsync = function getSingleTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/' + todo_id,
+	      type: 'GET'
+	    }).done(function (data) {
+	      dispatch(getSinglePost(data));
+	    });
+	  };
+	};
+	
+	var deleteTodo = exports.deleteTodo = function deleteTodo(todo_id) {
+	  return {
+	    type: 'DELETE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var deleteTodoAsync = exports.deleteTodoAsync = function deleteTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/' + todo_id,
+	      type: 'DElETE'
+	    });
+	    dispatch(deleteTodo(todo_id));
+	  };
+	};
+	
+	var sendTodoToCrate = exports.sendTodoToCrate = function sendTodoToCrate(todo_id) {
+	  return {
+	    type: 'CRATE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var sendTodoToCrateAsync = exports.sendTodoToCrateAsync = function sendTodoToCrateAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/crate/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(sendTodoToCrate(todo_id));
+	  };
+	};
+	
+	var completeTodo = exports.completeTodo = function completeTodo(todo_id) {
+	  return {
+	    type: 'COMPLETE_TODO',
+	    payload: todo_id
+	  };
+	};
+	
+	var completeTodoAsync = exports.completeTodoAsync = function completeTodoAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/complete/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(completeTodo(todo_id));
+	  };
+	};
+	
+	var makeTodoActive = exports.makeTodoActive = function makeTodoActive(todo_id) {
+	  return {
+	    type: 'MAKE_TODO_ACTIVE',
+	    payload: todo_id
+	  };
+	};
+	
+	var makeTodoActiveAsync = exports.makeTodoActiveAsync = function makeTodoActiveAsync(todo_id) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos/make-active/' + todo_id,
+	      type: 'PUT'
+	    });
+	    dispatch(makeTodoActive(todo_id));
+	  };
+	};
+
+/***/ },
+/* 270 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var setActivePath = exports.setActivePath = function setActivePath(activePath) {
+	  return {
+	    type: 'SET_ACTIVE_PATH',
+	    payload: activePath
+	  };
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.createTodoAsync = exports.createTodo = undefined;
+	
+	var _jquery = __webpack_require__(268);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var createTodo = exports.createTodo = function createTodo(newTodo) {
+	  return {
+	    type: 'CREATE_TODO',
+	    payload: newTodo
+	  };
+	};
+	
+	var createTodoAsync = exports.createTodoAsync = function createTodoAsync(newTodo) {
+	  return function (dispatch) {
+	    _jquery2.default.ajax({
+	      url: '/todos',
+	      type: 'POST',
+	      data: newTodo
+	    }).done(function (data) {
+	      dispatch(createTodo(data));
+	    });
+	  };
+	};
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(228);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ButtonContainer = function ButtonContainer(props) {
+	  return props.show ? _react2.default.createElement(
+	    'button',
+	    { onClick: props.clickHandler },
+	    props.text
+	  ) : null;
+	};
+	
+	var mapStateToProps = function mapStateToProps(state, ownProps) {
+	  return {
+	    show: state.activePath !== ownProps.hideOn
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ButtonContainer);
+
+/***/ },
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55723,8 +55983,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(TodoContainer);
 
 /***/ },
-/* 269 */,
-/* 270 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55737,13 +55996,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _jquery = __webpack_require__(266);
+	var _jquery = __webpack_require__(268);
 	
 	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	var _reactRouter = __webpack_require__(173);
 	
-	var _actions = __webpack_require__(306);
+	var _actions = __webpack_require__(266);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
@@ -55808,8 +56067,7 @@
 	exports.default = CreateTodo;
 
 /***/ },
-/* 271 */,
-/* 272 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55847,7 +56105,7 @@
 	exports.default = Navbar;
 
 /***/ },
-/* 273 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55877,7 +56135,7 @@
 	exports.default = NoRoute;
 
 /***/ },
-/* 274 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55888,9 +56146,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _generate = __webpack_require__(275);
+	var _generate = __webpack_require__(278);
 	
-	var _exports2 = __webpack_require__(292);
+	var _exports2 = __webpack_require__(295);
 	
 	var _exports3 = _interopRequireDefault(_exports2);
 	
@@ -55899,7 +56157,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 275 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55912,11 +56170,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _inlineStylePrefixerStatic = __webpack_require__(276);
+	var _inlineStylePrefixerStatic = __webpack_require__(279);
 	
 	var _inlineStylePrefixerStatic2 = _interopRequireDefault(_inlineStylePrefixerStatic);
 	
-	var _util = __webpack_require__(291);
+	var _util = __webpack_require__(294);
 	
 	/**
 	 * `selectorHandlers` are functions which handle special selectors which act
@@ -56189,14 +56447,14 @@
 	exports.generateCSSRuleset = generateCSSRuleset;
 
 /***/ },
-/* 276 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(277)
+	module.exports = __webpack_require__(280)
 
 
 /***/ },
-/* 277 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56206,43 +56464,43 @@
 	});
 	exports.default = prefixAll;
 	
-	var _prefixProps = __webpack_require__(278);
+	var _prefixProps = __webpack_require__(281);
 	
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 	
-	var _capitalizeString = __webpack_require__(279);
+	var _capitalizeString = __webpack_require__(282);
 	
 	var _capitalizeString2 = _interopRequireDefault(_capitalizeString);
 	
-	var _calc = __webpack_require__(280);
+	var _calc = __webpack_require__(283);
 	
 	var _calc2 = _interopRequireDefault(_calc);
 	
-	var _cursor = __webpack_require__(283);
+	var _cursor = __webpack_require__(286);
 	
 	var _cursor2 = _interopRequireDefault(_cursor);
 	
-	var _flex = __webpack_require__(284);
+	var _flex = __webpack_require__(287);
 	
 	var _flex2 = _interopRequireDefault(_flex);
 	
-	var _sizing = __webpack_require__(285);
+	var _sizing = __webpack_require__(288);
 	
 	var _sizing2 = _interopRequireDefault(_sizing);
 	
-	var _gradient = __webpack_require__(286);
+	var _gradient = __webpack_require__(289);
 	
 	var _gradient2 = _interopRequireDefault(_gradient);
 	
-	var _transition = __webpack_require__(287);
+	var _transition = __webpack_require__(290);
 	
 	var _transition2 = _interopRequireDefault(_transition);
 	
-	var _flexboxIE = __webpack_require__(289);
+	var _flexboxIE = __webpack_require__(292);
 	
 	var _flexboxIE2 = _interopRequireDefault(_flexboxIE);
 	
-	var _flexboxOld = __webpack_require__(290);
+	var _flexboxOld = __webpack_require__(293);
 	
 	var _flexboxOld2 = _interopRequireDefault(_flexboxOld);
 	
@@ -56308,7 +56566,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 278 */
+/* 281 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -56320,7 +56578,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 279 */
+/* 282 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -56337,7 +56595,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 280 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56347,11 +56605,11 @@
 	});
 	exports.default = calc;
 	
-	var _joinPrefixedValue = __webpack_require__(281);
+	var _joinPrefixedValue = __webpack_require__(284);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
-	var _isPrefixedValue = __webpack_require__(282);
+	var _isPrefixedValue = __webpack_require__(285);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
@@ -56367,7 +56625,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 281 */
+/* 284 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56392,7 +56650,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 282 */
+/* 285 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56410,7 +56668,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 283 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56420,7 +56678,7 @@
 	});
 	exports.default = cursor;
 	
-	var _joinPrefixedValue = __webpack_require__(281);
+	var _joinPrefixedValue = __webpack_require__(284);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
@@ -56441,7 +56699,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 284 */
+/* 287 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56462,7 +56720,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 285 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56472,7 +56730,7 @@
 	});
 	exports.default = sizing;
 	
-	var _joinPrefixedValue = __webpack_require__(281);
+	var _joinPrefixedValue = __webpack_require__(284);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
@@ -56503,7 +56761,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 286 */
+/* 289 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56513,11 +56771,11 @@
 	});
 	exports.default = gradient;
 	
-	var _joinPrefixedValue = __webpack_require__(281);
+	var _joinPrefixedValue = __webpack_require__(284);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
-	var _isPrefixedValue = __webpack_require__(282);
+	var _isPrefixedValue = __webpack_require__(285);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
@@ -56533,7 +56791,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 287 */
+/* 290 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56543,19 +56801,19 @@
 	});
 	exports.default = transition;
 	
-	var _hyphenateStyleName = __webpack_require__(288);
+	var _hyphenateStyleName = __webpack_require__(291);
 	
 	var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 	
-	var _capitalizeString = __webpack_require__(279);
+	var _capitalizeString = __webpack_require__(282);
 	
 	var _capitalizeString2 = _interopRequireDefault(_capitalizeString);
 	
-	var _isPrefixedValue = __webpack_require__(282);
+	var _isPrefixedValue = __webpack_require__(285);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
-	var _prefixProps = __webpack_require__(278);
+	var _prefixProps = __webpack_require__(281);
 	
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 	
@@ -56620,7 +56878,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 288 */
+/* 291 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56642,7 +56900,7 @@
 
 
 /***/ },
-/* 289 */
+/* 292 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56679,7 +56937,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 290 */
+/* 293 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -56720,7 +56978,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 291 */
+/* 294 */
 /***/ function(module, exports) {
 
 	// {K1: V1, K2: V2, ...} -> [[K1, V1], [K2, V2]]
@@ -56967,7 +57225,7 @@
 	exports.importantify = importantify;
 
 /***/ },
-/* 292 */
+/* 295 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -56976,9 +57234,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _util = __webpack_require__(291);
+	var _util = __webpack_require__(294);
 	
-	var _inject = __webpack_require__(293);
+	var _inject = __webpack_require__(296);
 	
 	var StyleSheet = {
 	    create: function create(sheetDefinition) {
@@ -57110,7 +57368,7 @@
 	module.exports = makeExports;
 
 /***/ },
-/* 293 */
+/* 296 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57121,13 +57379,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _asap = __webpack_require__(294);
+	var _asap = __webpack_require__(297);
 	
 	var _asap2 = _interopRequireDefault(_asap);
 	
-	var _generate = __webpack_require__(275);
+	var _generate = __webpack_require__(278);
 	
-	var _util = __webpack_require__(291);
+	var _util = __webpack_require__(294);
 	
 	// The current <style> tag we are inserting into, or null if we haven't
 	// inserted anything yet. We could find this each time using
@@ -57353,13 +57611,13 @@
 	exports.injectAndGetClassName = injectAndGetClassName;
 
 /***/ },
-/* 294 */
+/* 297 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
 	// rawAsap provides everything we need except exception management.
-	var rawAsap = __webpack_require__(295);
+	var rawAsap = __webpack_require__(298);
 	// RawTasks are recycled to reduce GC churn.
 	var freeTasks = [];
 	// We queue errors to ensure they are thrown in right order (FIFO).
@@ -57425,7 +57683,7 @@
 
 
 /***/ },
-/* 295 */
+/* 298 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {"use strict";
@@ -57655,7 +57913,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 296 */
+/* 299 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -57664,7 +57922,7 @@
 	  value: true
 	});
 	
-	var _aphrodite = __webpack_require__(274);
+	var _aphrodite = __webpack_require__(277);
 	
 	var styles = _aphrodite.StyleSheet.create({
 	  p: {
@@ -57692,268 +57950,6 @@
 	//     textDecoration: 'none'
 	//   }
 	// }
-
-/***/ },
-/* 297 */,
-/* 298 */,
-/* 299 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(228);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ButtonContainer = function ButtonContainer(props) {
-	  return props.show ? _react2.default.createElement(
-	    'button',
-	    { onClick: props.clickHandler },
-	    props.text
-	  ) : null;
-	};
-	
-	var mapStateToProps = function mapStateToProps(state, ownProps) {
-	  return {
-	    show: state.activePath !== ownProps.hideOn
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ButtonContainer);
-
-/***/ },
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _todosActions = __webpack_require__(307);
-	
-	var todosActions = _interopRequireWildcard(_todosActions);
-	
-	var _todoActions = __webpack_require__(308);
-	
-	var todoActions = _interopRequireWildcard(_todoActions);
-	
-	var _activePathActions = __webpack_require__(310);
-	
-	var activePathActions = _interopRequireWildcard(_activePathActions);
-	
-	var _createTodoActions = __webpack_require__(309);
-	
-	var createTodoActions = _interopRequireWildcard(_createTodoActions);
-	
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-	
-	exports.default = Object.assign(todosActions, todoActions, activePathActions, createTodoActions);
-
-/***/ },
-/* 307 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getTodosAsync = exports.getTodos = undefined;
-	
-	var _jquery = __webpack_require__(266);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var getTodos = exports.getTodos = function getTodos(todos) {
-	  return {
-	    type: 'GET_TODOS',
-	    payload: todos
-	  };
-	};
-	
-	var getTodosAsync = exports.getTodosAsync = function getTodosAsync() {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos',
-	      type: 'GET'
-	    }).done(function (data) {
-	      dispatch(getTodos(data));
-	    });
-	  };
-	};
-
-/***/ },
-/* 308 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.makeTodoActiveAsync = exports.makeTodoActive = exports.completeTodoAsync = exports.completeTodo = exports.sendTodoToCrateAsync = exports.sendTodoToCrate = exports.deleteTodoAsync = exports.deleteTodo = exports.getSingleTodoAsync = exports.getSingleTodo = undefined;
-	
-	var _jquery = __webpack_require__(266);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var getSingleTodo = exports.getSingleTodo = function getSingleTodo(todo) {
-	  return {
-	    type: 'GET_SINGLE_TODO',
-	    payload: todo
-	  };
-	};
-	
-	var getSingleTodoAsync = exports.getSingleTodoAsync = function getSingleTodoAsync(todo_id) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos/' + todo_id,
-	      type: 'GET'
-	    }).done(function (data) {
-	      dispatch(getSinglePost(data));
-	    });
-	  };
-	};
-	
-	var deleteTodo = exports.deleteTodo = function deleteTodo(todo_id) {
-	  return {
-	    type: 'DELETE_TODO',
-	    payload: todo_id
-	  };
-	};
-	
-	var deleteTodoAsync = exports.deleteTodoAsync = function deleteTodoAsync(todo_id) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos/' + todo_id,
-	      type: 'DElETE'
-	    });
-	    dispatch(deleteTodo(todo_id));
-	  };
-	};
-	
-	var sendTodoToCrate = exports.sendTodoToCrate = function sendTodoToCrate(todo_id) {
-	  return {
-	    type: 'CRATE_TODO',
-	    payload: todo_id
-	  };
-	};
-	
-	var sendTodoToCrateAsync = exports.sendTodoToCrateAsync = function sendTodoToCrateAsync(todo_id) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos/crate/' + todo_id,
-	      type: 'PUT'
-	    });
-	    dispatch(sendTodoToCrate(todo_id));
-	  };
-	};
-	
-	var completeTodo = exports.completeTodo = function completeTodo(todo_id) {
-	  return {
-	    type: 'COMPLETE_TODO',
-	    payload: todo_id
-	  };
-	};
-	
-	var completeTodoAsync = exports.completeTodoAsync = function completeTodoAsync(todo_id) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos/complete/' + todo_id,
-	      type: 'PUT'
-	    });
-	    dispatch(completeTodo(todo_id));
-	  };
-	};
-	
-	var makeTodoActive = exports.makeTodoActive = function makeTodoActive(todo_id) {
-	  return {
-	    type: 'MAKE_TODO_ACTIVE',
-	    payload: todo_id
-	  };
-	};
-	
-	var makeTodoActiveAsync = exports.makeTodoActiveAsync = function makeTodoActiveAsync(todo_id) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos/make-active/' + todo_id,
-	      type: 'PUT'
-	    });
-	    dispatch(makeTodoActive(todo_id));
-	  };
-	};
-
-/***/ },
-/* 309 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.createTodoAsync = exports.createTodo = undefined;
-	
-	var _jquery = __webpack_require__(266);
-	
-	var _jquery2 = _interopRequireDefault(_jquery);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var createTodo = exports.createTodo = function createTodo(newTodo) {
-	  return {
-	    type: 'CREATE_TODO',
-	    payload: newTodo
-	  };
-	};
-	
-	var createTodoAsync = exports.createTodoAsync = function createTodoAsync(newTodo) {
-	  return function (dispatch) {
-	    _jquery2.default.ajax({
-	      url: '/todos',
-	      type: 'POST',
-	      data: newTodo
-	    }).done(function (data) {
-	      dispatch(createTodo(data));
-	    });
-	  };
-	};
-
-/***/ },
-/* 310 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var setActivePath = exports.setActivePath = function setActivePath(activePath) {
-	  return {
-	    type: 'SET_ACTIVE_PATH',
-	    payload: activePath
-	  };
-	};
 
 /***/ }
 /******/ ]);

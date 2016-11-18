@@ -1,3 +1,4 @@
+import {combineReducers} from 'redux';
 import activePath from './active-path-reducer';
 import todos from './todos-reducer';
 import todo from './todo-reducer';
